@@ -65,6 +65,7 @@ uses: peachjar/action-dispatch-event@v1
 with:
   awsAccessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
   awsSecretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  awsRegion: ${{ secrets.AWS_REGION }}
   snsTopic: ${{ secrets.SNS_TOPIC }}
 ```
 
@@ -75,6 +76,7 @@ uses: peachjar/action-dispatch-event@v1
 with:
   awsAccessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
   awsSecretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  awsRegion: ${{ secrets.AWS_REGION }}
   snsTopic: ${{ secrets.SNS_TOPIC }}
   eventName: whatever_you_want_to_call_it
   event: |

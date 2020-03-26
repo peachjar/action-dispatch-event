@@ -13,7 +13,12 @@ const deps: Deps = {
     core,
     loadEvent,
     readFileAsync: promisify(readFile),
-    createSNSClient: (awsAccessKeyId: string, awsSecretAccessKey: string) => new SNS({
+    createSNSClient: (
+        awsAccessKeyId: string,
+        awsSecretAccessKey: string,
+        awsRegion: string
+    ) => new SNS({
+        region: awsRegion,
         credentials: {
             accessKeyId: awsAccessKeyId,
             secretAccessKey: awsSecretAccessKey,

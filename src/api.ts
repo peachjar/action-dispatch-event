@@ -11,7 +11,7 @@ export type Core = {
     [k: string]: any
 }
 
-export type createSNSClient = (awsAccessKeyId: string, awsSecretAccessKey: string) => SNS
+export type createSNSClient = (awsAccessKeyId: string, awsSecretAccessKey: string, awsRegion: string) => SNS
 
 export type ReadFileAsyncFn = (path: string, encoding: string) => Promise<string>
 

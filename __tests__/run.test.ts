@@ -33,6 +33,7 @@ describe('Run function', () => {
         inputs = {
             awsAccessKeyId: 'abc123',
             awsSecretAccessKey: 'abc123',
+            awsRegion: 'us-east-1',
             snsTopic: 'aws::sns::ci',
         }
         env = {
@@ -80,6 +81,17 @@ describe('Run function', () => {
     describe('when the [awsSecretAccessKey] is not supplied', () => {
         beforeEach(() => {
             inputs.awsSecretAccessKey = undefined
+        })
+
+        it('should fail the action', async () => {
+            await run(deps, context, env)
+            expect(core.setFailed).toHaveBeenCalled()
+        })
+    })
+
+    describe('when the [awsRegion] is not supplied', () => {
+        beforeEach(() => {
+            inputs.awsRegion = undefined
         })
 
         it('should fail the action', async () => {

@@ -9,9 +9,14 @@ export default async function run(deps: Deps, context: Context, env: Environment
     try {
         const awsAccessKeyId = core.getInput('awsAccessKeyId', { required: true })
         const awsSecretAccessKey = core.getInput('awsSecretAccessKey', { required: true })
+        const awsRegion = core.getInput('awsRegion', { required: true })
 
         if (!awsAccessKeyId || !awsSecretAccessKey) {
             return core.setFailed('AWS credentials are invalid.')
+        }
+
+        if (!awsRegion) {
+            return core.setFailed('AWS Region is required.')
         }
 
         const snsTopic = core.getInput('snsTopic', { required: true })
@@ -20,7 +25,7 @@ export default async function run(deps: Deps, context: Context, env: Environment
             return core.setFailed('SNS Topic is required.')
         }
 
-        const sns = createSNSClient(awsAccessKeyId, awsSecretAccessKey)
+        const sns = createSNSClient(awsAccessKeyId, awsSecretAccessKey, awsRegion)
 
         const { isCustomEvent, eventName, event } = await loadEvent(core, readFileAsync, env)
 
@@ -52,8 +57,6 @@ export default async function run(deps: Deps, context: Context, env: Environment
         }
 
         const payloadJson = JSON.stringify(payload)
-
-        core.info(`Event: ${payloadJson}`)
 
         const result = await sns.publish({ TopicArn: snsTopic, Message: payloadJson }).promise()
 
