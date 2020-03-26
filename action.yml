@@ -1,0 +1,22 @@
+name: Dispatch Event
+description: Dispatch a CI event to SNS
+author: Peachjar Engineering
+inputs:
+  awsAccessKeyId:
+    required: true
+    description: Github token use to interact with the API.
+  awsSecretAccessKey:
+    required: true
+    description: The DNS domain of the environment to test.
+  snsTopic:
+    required: true
+    description: SNS topic to publish the event to.
+  eventName:
+    required: false
+    description: Name of the event. By default, the name of the event that triggered the action.
+  event:
+    required: false
+    description: Payload/data of the event.  By default, the event that triggered the action.
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
